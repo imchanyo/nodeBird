@@ -1,8 +1,12 @@
 // 게시글
 export const state = () => ({
   mainPosts: [],
-  removeMainPost: [],
+  hasMorePost: true,
+  // 쓸데없는 요청 유무 판단
 });
+
+const totalPosts = 31;
+const limit = 10;
 
 export const mutations = {
   addMainPost(state, payload) {
@@ -17,6 +21,24 @@ export const mutations = {
     const index = state.mainPosts.findIndex((v) => v.id === payload.postId);
     state.mainPosts[index].Comments.unshift(payload);
   },
+  loadPosts(state) {
+    const diff = totalPosts - state.mainPosts.length; // 아직 불러오지않은 게시물 수
+    const fakePosts = Array(diff > limit ? limit : diff)
+      .fill()
+      .map((v) => ({
+        id: Math.random().toString(),
+        User: {
+          id: 1,
+          nickname: "김찬영",
+        },
+        content: `Hello infinite scrolling~ ${Math.random()}`,
+        Comments: [],
+        Images: [],
+      }));
+    state.mainPosts = state.mainPosts.concat(fakePosts);
+    state.hasMorePost = fakePosts.length === limit;
+    // fakePosts가 10이 아닐때 false가됨
+  },
 };
 
 export const actions = {
@@ -30,5 +52,10 @@ export const actions = {
   },
   addComment({ commit }, payload) {
     commit("addComment", payload);
+  },
+  loadPosts({ commit, state }, payload) {
+    if (state.hasMorePost) {
+      commit("loadPosts");
+    }
   },
 };

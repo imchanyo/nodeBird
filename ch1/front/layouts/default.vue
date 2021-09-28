@@ -7,13 +7,22 @@
         </v-toolbar-title>
         <v-spacer />
         <v-toolbar-items :style="{ display: 'flex', alignItems: 'center' }">
-          <v-text-field label="검색" hide-details prepend-icon="mdi-magnify" />
-          <v-btn text nuxt to="/profile"> <div>프로필</div></v-btn>
-          <v-btn text nuxt to="/signup"> <div>회원가입</div></v-btn>
+          <v-form @submit.prevent="onSearchHashtag">
+            <div
+              :style="{ display: 'flex', height: '100%', alignItems: 'center' }"
+            >
+              <v-text-field
+                v-model="hashtag"
+                label="검색"
+                hide-details
+                prepend-icon="mdi-magnify"
+              />
+              <v-btn text nuxt to="/profile"> <div>프로필</div></v-btn>
+              <v-btn text nuxt to="/signup"> <div>회원가입</div></v-btn>
+            </div>
+          </v-form>
         </v-toolbar-items>
       </v-toolbar>
-      <v-btn @click="onChangeName">바이바이</v-btn>
-      <div>{{ name }}</div>
     </nav>
 
     <v-row>
@@ -31,14 +40,22 @@
 import LoginForm from "../components/LoginForm.vue";
 export default {
   components: { LoginForm },
+  data() {
+    return {
+      hashtag: "",
+    };
+  },
   computed: {
     name() {
       return this.$store.state.posts.name;
     },
   },
   methods: {
-    onChangeName() {
-      this.$store.commit("posts/bye");
+    onSearchHashtag() {
+      this.$router.push({
+        path: `/hashtag/${this.hashtag}`,
+      });
+      this.hashtag = "";
     },
   },
 };

@@ -1,22 +1,14 @@
 <template>
   <div>
-    <post-form v-if="me" />
-    <div>
-      <post-card v-for="p in mainPosts" :key="p.id" :post="p" />
-      <!-- <post-card />
-      <post-card />
-      <post-card />
-      <post-card /> -->
-    </div>
+    <post-card v-for="p in mainPosts" :key="p.id" :post="p" />
   </div>
 </template>
 
 <script>
-import PostCard from "../components/PostCard.vue";
-import PostForm from "../components/PostForm.vue";
+import PostCard from "~/components/PostCard.vue";
 
 export default {
-  components: { PostCard, PostForm },
+  components: { PostCard },
   fetch({ store }) {
     store.dispatch("posts/loadPosts");
   },
