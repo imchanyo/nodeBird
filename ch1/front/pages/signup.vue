@@ -51,6 +51,7 @@
 
 <script>
 export default {
+  middleware: "anoymous",
   data() {
     return {
       valid: false,
@@ -75,6 +76,20 @@ export default {
     return {
       title: "회원가입",
     };
+  },
+  computed: {
+    me() {
+      return this.$store.state.users.me;
+    },
+  },
+  watch: {
+    me(value) {
+      if (value) {
+        this.$router.push({
+          path: "/",
+        });
+      }
+    },
   },
   methods: {
     onSubmitForm() {
