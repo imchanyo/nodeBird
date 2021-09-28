@@ -78,12 +78,27 @@ export default {
   },
   methods: {
     onSubmitForm() {
+      // dispatch는 action을 실행시키므로 비동기이므로 실행순서를 보장받지못한다.
+      // 그래서 회원가입이 실패했는데도 메인페이지로 이동하는 상황이 발생할 수 있습니다.
+      // dispatch도 promise이므로 then을 사용하여 실행순서를 보장받을 수 있다.
       let flag = this.$refs.form.validate();
       flag
-        ? this.$store.dispatch("users/signUp", {
-            nickname: this.nickname,
-            email: this.email,
-          })
+        ? this.$store
+            .dispatch("users/signUp", {
+              nickname: this.nickname,
+              email: this.email,
+            })
+            //  this.$router.push({
+            //     path: "/",
+            //   });
+            .then(() => {
+              this.$router.push({
+                path: "/",
+              });
+            })
+            .catch(() => {
+              alert("회원가입 실패");
+            })
         : alert("회원가입에 실패하였습니다.");
     },
   },
