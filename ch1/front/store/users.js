@@ -14,6 +14,9 @@ export const mutations = {
   setMe(state, payload) {
     state.me = payload;
   },
+  changeNickname(state, payload) {
+    state.me.nickname = payload.nickname;
+  },
 };
 
 // actions = 비동기작업을 처리함
@@ -43,5 +46,8 @@ export const actions = {
   logOut({ commit }, payload) {
     // 로그아웃처리시에는 다시 null로 변경시켜준다.
     commit("setMe", null);
+  },
+  changeNickname({ commit }, payload) {
+    commit("changeNickname", payload);
   },
 };
