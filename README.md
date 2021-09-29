@@ -10,6 +10,6 @@
 
 # Branch 별 분류)
 
-1. fetaure/vuex-store - 2강 vuex 모듈관리
-2.fetaure/frontend-skils - 3강 프론트 기술
+<p>1. fetaure/vuex-store - 2강 vuex 모듈관리</p>
+<p>2.fetaure/frontend-skils - 3강 프론트 기술</p>
      
