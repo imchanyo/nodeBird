@@ -102,10 +102,8 @@ export default {
             .dispatch("users/signUp", {
               nickname: this.nickname,
               email: this.email,
+              password: this.password,
             })
-            //  this.$router.push({
-            //     path: "/",
-            //   });
             .then(() => {
               this.$router.push({
                 path: "/",
