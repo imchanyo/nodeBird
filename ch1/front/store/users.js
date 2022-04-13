@@ -77,11 +77,12 @@ export const mutations = {
 // actions 안에서 mutation, 또다른 actions , state, getter를 바꾸는역할을함
 // 고차원적인 역할
 export const actions = {
-  signUp(
-    { commit, dispatch, state, rootState, getters, rootGetters },
-    payload
-  ) {
-    console.log(34, payload);
+  signUp({ commit, state }, payload) {
+    this.$axios.post("http://localhost:3085/user", {
+      email: payload.email,
+      nickname: payload.nickname,
+      password: payload.password,
+    });
     // 서버에 회원가입 요청을 보내는부분
     // 응답을 받은 후 바로 로그인 실행 (회원정보를 바로 넣어줌)
     // state.me = payload 이렇게 바로 바꿔도되지만 mutation과 actions역할을 분리시켜서 사용하는것이 좋다.
